@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.FirebaseException
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,6 +20,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
+//        readFireStoreFail()
     }
 
     private fun initView() {
@@ -75,6 +78,20 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
                 }
             }
         }
+    }
+
+    private fun readFireStoreFail() {
+        collection.document("Failssss").get()
+            .addOnSuccessListener { document ->
+                Log.d("read_success", document.toString())
+            }
+            .addOnFailureListener { exception ->
+                val errorCode = (exception as FirebaseFirestoreException).code
+                val errorMessage = exception.message
+
+                Log.d("read_fail", errorCode.value().toString() + errorCode.name)
+                Log.d("read_fail", errorMessage.toString())
+            }
     }
 
     override fun updateProgressBar(data: User) {

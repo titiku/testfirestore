@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
         rvUser.layoutManager = LinearLayoutManager(this)
         rvUser.adapter = adapter
 
-        //Read Data from Could FireStore
+        //Read Data first from Could FireStore
         readFireStore()
 
         //Add User Data to Could FireStore
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
                 documentId = result.documents.last().id.toInt() + 1
             }
 
-            val user = User(documentId.toString(), "user$documentId")
+            val user = User(documentId.toString(), "User$documentId")
 
             collection.document(documentId.toString()).set(user)
                 .addOnSuccessListener {

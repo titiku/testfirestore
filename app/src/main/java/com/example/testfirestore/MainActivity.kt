@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
         rvUser.layoutManager = LinearLayoutManager(this)
         rvUser.adapter = adapter
 
-        //Read Data from Could FireStore
+        //Read Data first from Could FireStore
         readFireStore()
 
         //Add User Data to Could FireStore
@@ -70,7 +70,6 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
                     if (adapter.getList().none { it.id == user.id }) {
                         adapter.addList(user)
                     } else {
-                        Log.i("balltest", user.toString())
                         adapter.updateList(user)
                     }
                 }

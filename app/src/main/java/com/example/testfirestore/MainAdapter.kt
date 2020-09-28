@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.item_user.view.*
 
 class MainAdapter : RecyclerView.Adapter<MainAdapter.UserViewHolder>() {
     private val list = arrayListOf<User>()
+    private var updateUserListener: UpdateUserListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         return UserViewHolder(
@@ -30,6 +31,10 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.UserViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun setListener(listener: UpdateUserListener) {
+        updateUserListener = listener
+    }
+
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(user: User) {
             itemView.tvId.text = user.id
@@ -46,5 +51,11 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.UserViewHolder>() {
                 }
             }
         }
+    }
+
+    interface UpdateUserListener {
+        fun decreaseProgress()
+        fun increaseProgress()
+        fun onUserDataChange()
     }
 }

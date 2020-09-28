@@ -3,15 +3,12 @@ package com.example.testfirestore
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.animation.ObjectAnimator.ofInt
-import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.item_user.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
     private val db = Firebase.firestore
     private val collectionName = "users"
     private val collection = db.collection(collectionName)
@@ -21,15 +18,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         initView()
     }
 
     private fun initView() {
         rvUser.layoutManager = LinearLayoutManager(this)
         rvUser.adapter = adapter
+        adapter.setListener(this)
+
+        //Read Data from Could FireStore
         readFireStore()
 
+        //Add User Data to Could FireStore
         btAddUser.setOnClickListener {
             addUser()
         }
@@ -65,5 +65,17 @@ class MainActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.d("read_fail", "Error getting documents.", exception)
             }
+    }
+
+    override fun decreaseProgress() {
+        TODO("Not yet implemented")
+    }
+
+    override fun increaseProgress() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onUserDataChange() {
+        TODO("Not yet implemented")
     }
 }

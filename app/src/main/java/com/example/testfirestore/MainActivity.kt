@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
     private val collectionName = "users"
     private val collection = db.collection(collectionName)
     private var documentId = 1
-    private var adapter = MainAdapter()
+    private var adapter = MainAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
     private fun initView() {
         rvUser.layoutManager = LinearLayoutManager(this)
         rvUser.adapter = adapter
-        adapter.setListener(this)
 
         //Read Data from Could FireStore
         readFireStore()
@@ -68,7 +67,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
     }
 
     override fun decreaseProgress(data: User) {
-        TODO("Not yet implemented")
+
     }
 
     override fun increaseProgress(data: User) {

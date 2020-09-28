@@ -8,13 +8,13 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_user.view.*
 
-class MainAdapter : RecyclerView.Adapter<MainAdapter.UserViewHolder>() {
+class MainAdapter(private val updateUserListener: UpdateUserListener) : RecyclerView.Adapter<MainAdapter.UserViewHolder>() {
     private val list = arrayListOf<User>()
-    private var updateUserListener: UpdateUserListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         return UserViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_user, parent, false),
+            updateUserListener
         )
     }
 
@@ -31,20 +31,20 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.UserViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun setListener(listener: UpdateUserListener) {
-        updateUserListener = listener
-    }
+    class UserViewHolder(
+        itemView: View,
+        userListener: UpdateUserListener
+    ) : RecyclerView.ViewHolder(itemView) {
 
-    class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(user: User) {
             itemView.tvId.text = user.id
             itemView.tvName.text = user.name
-            updateProgressBar(user.progress)
+            updateProgressBar(user)
         }
 
-        private fun updateProgressBar(point: Int) {
+        private fun updateProgressBar(user: User) {
             itemView.progressBar.apply {
-                ObjectAnimator.ofInt(this, "progress", point).let {
+                ObjectAnimator.ofInt(this, "progress", user.progress).let {
                     it.duration = 800L
                     it.interpolator = AccelerateDecelerateInterpolator()
                     it.start()

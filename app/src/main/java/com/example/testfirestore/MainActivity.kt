@@ -44,8 +44,9 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
 
             collection.document(documentId.toString()).set(user)
                 .addOnSuccessListener {
-                    documentId += 1
                     adapter.addList(user)
+                    observeEvent(user.id)
+                    documentId += 1
                 }
         }
     }
@@ -54,11 +55,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
         collection.get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    Log.d("read", "${document.id} => ${document.data}")
-
-                    val user = document.toObject(User::class.java)
-
-                    adapter.addList(user)
+                    observeEvent(document.id)
                 }
             }
             .addOnFailureListener { exception ->
@@ -66,15 +63,25 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
             }
     }
 
+    private fun observeEvent(documentId: String) {
+        collection.document(documentId).addSnapshotListener { value, error ->
+            value?.let { document ->
+                document.toObject(User::class.java)?.let { user ->
+                    if (adapter.getList().none { it.id == user.id }) {
+                        adapter.addList(user)
+                    } else {
+                        adapter.updateList(user)
+                    }
+                }
+            }
+        }
+    }
+
     override fun decreaseProgress(data: User) {
 
     }
 
     override fun increaseProgress(data: User) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onUserDataChange(data: User) {
         TODO("Not yet implemented")
     }
 }

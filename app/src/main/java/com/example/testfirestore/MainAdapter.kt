@@ -8,7 +8,8 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_user.view.*
 
-class MainAdapter(private val updateUserListener: UpdateUserListener) : RecyclerView.Adapter<MainAdapter.UserViewHolder>() {
+class MainAdapter(private val updateUserListener: UpdateUserListener) :
+    RecyclerView.Adapter<MainAdapter.UserViewHolder>() {
     private val list = arrayListOf<User>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
@@ -26,8 +27,18 @@ class MainAdapter(private val updateUserListener: UpdateUserListener) : Recycler
         holder.bind(list[position])
     }
 
+    fun getList(): ArrayList<User> {
+        return list
+    }
+
     fun addList(user: User) {
         list.add(user)
+        notifyDataSetChanged()
+    }
+
+    fun updateList(user: User) {
+        list.filter { it.id == user.id }[0].progress =
+            user.progress
         notifyDataSetChanged()
     }
 
@@ -56,6 +67,5 @@ class MainAdapter(private val updateUserListener: UpdateUserListener) : Recycler
     interface UpdateUserListener {
         fun decreaseProgress(data: User)
         fun increaseProgress(data: User)
-        fun onUserDataChange(data: User)
     }
 }

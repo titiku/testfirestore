@@ -67,15 +67,15 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
             }
     }
 
-    override fun decreaseProgress() {
+    override fun decreaseProgress(data: User) {
         TODO("Not yet implemented")
     }
 
-    override fun increaseProgress() {
+    override fun increaseProgress(data: User) {
         TODO("Not yet implemented")
     }
 
-    override fun onUserDataChange() {
+    override fun onUserDataChange(data: User) {
         TODO("Not yet implemented")
     }
 }

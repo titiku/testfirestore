@@ -54,8 +54,8 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.UserViewHolder>() {
     }
 
     interface UpdateUserListener {
-        fun decreaseProgress()
-        fun increaseProgress()
-        fun onUserDataChange()
+        fun decreaseProgress(data: User)
+        fun increaseProgress(data: User)
+        fun onUserDataChange(data: User)
     }
 }

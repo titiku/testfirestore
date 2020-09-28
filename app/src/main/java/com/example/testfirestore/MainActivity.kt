@@ -70,7 +70,6 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
                     if (adapter.getList().none { it.id == user.id }) {
                         adapter.addList(user)
                     } else {
-                        Log.i("balltest", user.toString())
                         adapter.updateList(user)
                     }
                 }

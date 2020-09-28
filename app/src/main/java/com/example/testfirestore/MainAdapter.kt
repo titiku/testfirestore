@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_user.view.*
 
 class MainAdapter : RecyclerView.Adapter<MainAdapter.UserViewHolder>() {
-    private val list = arrayListOf<HashMap<String, String>>()
+    private val list = arrayListOf<User>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         return UserViewHolder(
@@ -23,14 +23,15 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.UserViewHolder>() {
         holder.bind(list[position])
     }
 
-    fun addList(hashMap: HashMap<String, String>) {
-        list.add(hashMap)
+    fun addList(user: User) {
+        list.add(user)
         notifyDataSetChanged()
     }
 
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(hashMap: HashMap<String, String>) {
-            itemView.tvName.text = hashMap["name"]
+        fun bind(user: User) {
+            itemView.tvId.text = user.id.toString()
+            itemView.tvName.text = user.name
         }
     }
 }

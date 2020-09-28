@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initView()
-//        addUser()
+        addUser()
     }
 
     private fun initView() {
@@ -34,13 +34,13 @@ class MainActivity : AppCompatActivity() {
             if (!result.isEmpty) {
                 documentId = result.documents.last().id.toInt() + 1
             }
-            val user = hashMapOf(
-                "id" to documentId.toString(),
-                "name" to "Ball $documentId"
-            )
+
+            val user = User(documentId.toString(), "user$documentId")
+
             collection.document(documentId.toString()).set(user)
                 .addOnSuccessListener {
                     documentId += 1
+                    adapter.notifyDataSetChanged()
                 }
         }
     }
@@ -51,10 +51,7 @@ class MainActivity : AppCompatActivity() {
                 for (document in result) {
                     Log.d("read", "${document.id} => ${document.data}")
 
-                    val user = hashMapOf(
-                        "id" to document.data["id"].toString(),
-                        "name" to document.data["name"].toString()
-                    )
+                    val user = document.toObject(User::class.java)
 
                     adapter.addList(user)
                 }

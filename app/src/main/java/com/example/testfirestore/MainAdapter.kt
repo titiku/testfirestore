@@ -1,8 +1,10 @@
 package com.example.testfirestore
 
+import android.animation.ObjectAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_user.view.*
 
@@ -32,6 +34,17 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.UserViewHolder>() {
         fun bind(user: User) {
             itemView.tvId.text = user.id.toString()
             itemView.tvName.text = user.name
+            updateProgressBar(user.progress)
+        }
+
+        private fun updateProgressBar(point: Int) {
+            itemView.progressBar.apply {
+                ObjectAnimator.ofInt(this, "progress", point).let {
+                    it.duration = 800L
+                    it.interpolator = AccelerateDecelerateInterpolator()
+                    it.start()
+                }
+            }
         }
     }
 }

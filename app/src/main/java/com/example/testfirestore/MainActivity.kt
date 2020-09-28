@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initView()
-        addUser()
     }
 
     private fun initView() {
@@ -45,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun readFireStore() {
+    private fun readFireStore() {
         collection.get()
             .addOnSuccessListener { result ->
                 for (document in result) {

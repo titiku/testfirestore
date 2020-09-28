@@ -3,10 +3,13 @@ package com.example.testfirestore
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.animation.ObjectAnimator.ofInt
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_user.*
 
 class MainActivity : AppCompatActivity() {
     private val db = Firebase.firestore

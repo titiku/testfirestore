@@ -26,6 +26,10 @@ class MainActivity : AppCompatActivity() {
         rvUser.layoutManager = LinearLayoutManager(this)
         rvUser.adapter = adapter
         readFireStore()
+
+        btAddUser.setOnClickListener {
+            addUser()
+        }
     }
 
     private fun addUser() {
@@ -39,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             collection.document(documentId.toString()).set(user)
                 .addOnSuccessListener {
                     documentId += 1
-                    adapter.notifyDataSetChanged()
+                    adapter.addList(user)
                 }
         }
     }

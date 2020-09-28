@@ -30,7 +30,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.UserViewHolder>() {
 
     class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(user: User) {
-            itemView.tvId.text = user.id.toString()
+            itemView.tvId.text = user.id
             itemView.tvName.text = user.name
         }
     }

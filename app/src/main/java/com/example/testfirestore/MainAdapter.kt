@@ -56,20 +56,24 @@ class MainAdapter(private val updateUserListener: UpdateUserListener) :
         }
 
         private fun setOnIncreaseClick(user: User) {
-            user.progress = user.progress++
-
             itemView.increase.apply {
                 setOnClickListener {
+                    user.progress += 20
+                    if (user.progress > 100) {
+                        user.progress = 100
+                    }
                     userListener.updateProgressBar(user)
                 }
             }
         }
 
         private fun setOnDecreaseClick(user: User) {
-            user.progress = user.progress--
-
             itemView.decrease.apply {
                 setOnClickListener {
+                    user.progress -= 20
+                    if (user.progress < 0) {
+                        user.progress = 0
+                    }
                     userListener.updateProgressBar(user)
                 }
             }

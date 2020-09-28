@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
                     if (adapter.getList().none { it.id == user.id }) {
                         adapter.addList(user)
                     } else {
+                        Log.i("balltest", user.toString())
                         adapter.updateList(user)
                     }
                 }
@@ -78,6 +79,6 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
     }
 
     override fun updateProgressBar(data: User) {
-        collection.document(documentId.toString()).set(data)
+        collection.document(data.id).set(data)
     }
 }

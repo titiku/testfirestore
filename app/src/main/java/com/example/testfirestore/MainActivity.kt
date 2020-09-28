@@ -9,9 +9,8 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
-    private val db = Firebase.firestore
     private val collectionName = "users"
-    private val collection = db.collection(collectionName)
+    private val collection = Firebase.firestore.collection(collectionName)
     private var documentId = 1
     private var adapter = MainAdapter(this)
 
@@ -70,6 +69,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
                     if (adapter.getList().none { it.id == user.id }) {
                         adapter.addList(user)
                     } else {
+                        Log.d("observeEvent", user.toString())
                         adapter.updateList(user)
                     }
                 }

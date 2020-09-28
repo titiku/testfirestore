@@ -44,13 +44,35 @@ class MainAdapter(private val updateUserListener: UpdateUserListener) :
 
     class UserViewHolder(
         itemView: View,
-        userListener: UpdateUserListener
+        var userListener: UpdateUserListener
     ) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(user: User) {
             itemView.tvId.text = user.id
             itemView.tvName.text = user.name
             updateProgressBar(user)
+            setOnIncreaseClick(user)
+            setOnDecreaseClick(user)
+        }
+
+        private fun setOnIncreaseClick(user: User) {
+            user.progress = user.progress++
+
+            itemView.increase.apply {
+                setOnClickListener {
+                    userListener.updateProgressBar(user)
+                }
+            }
+        }
+
+        private fun setOnDecreaseClick(user: User) {
+            user.progress = user.progress--
+
+            itemView.decrease.apply {
+                setOnClickListener {
+                    userListener.updateProgressBar(user)
+                }
+            }
         }
 
         private fun updateProgressBar(user: User) {
@@ -65,7 +87,6 @@ class MainAdapter(private val updateUserListener: UpdateUserListener) :
     }
 
     interface UpdateUserListener {
-        fun decreaseProgress(data: User)
-        fun increaseProgress(data: User)
+        fun updateProgressBar(data: User)
     }
 }

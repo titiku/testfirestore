@@ -77,11 +77,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
         }
     }
 
-    override fun decreaseProgress(data: User) {
-
-    }
-
-    override fun increaseProgress(data: User) {
-        TODO("Not yet implemented")
+    override fun updateProgressBar(data: User) {
+        collection.document(documentId.toString()).set(data)
     }
 }

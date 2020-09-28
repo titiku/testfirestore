@@ -32,6 +32,7 @@
         android:progress="0" />
 
     <Button
+        android:id="@+id/increase"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginEnd="8dp"
@@ -40,9 +41,10 @@
     </Button>
 
     <Button
+        android:id="@+id/decrease"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:background="@drawable/ic_remove">
+        android:background="@drawable/ic_minus">
 
     </Button>
 

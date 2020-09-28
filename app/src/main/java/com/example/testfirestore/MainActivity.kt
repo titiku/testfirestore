@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
                 documentId = result.documents.last().id.toInt() + 1
             }
 
-            val user = User(documentId.toString(), "user$documentId")
+            val user = User(documentId.toString(), "User$documentId")
 
             collection.document(documentId.toString()).set(user)
                 .addOnSuccessListener {

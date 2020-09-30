@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity(), MainAdapter.UpdateUserListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
+
+//        uncomment for test error message from Could FireStore
 //        readFireStoreFail()
     }
 
